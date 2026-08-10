@@ -13,7 +13,7 @@ public:
         }
         else{
             count = 0; // agar 0 mila toh sequence break ho gaya, count reset
-        }
+       }
     }
     return maxCount; // sabse bada consecutive 1s ka sequence return karo
 
