@@ -1,38 +1,28 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        if (s.empty()) return "";   // agar string empty hai to return ""
-        
-        int start = 0;              // longest palindrome ka starting index
-        int maxLen = 1;             // longest palindrome ki length (minimum 1 hamesha hoti hai)
-        
-        // Har character ko center maan ke expand karenge
-        for (int i = 0; i < s.size(); i++) {
-            // Odd length palindrome (center ek character)
-            expandAroundCenter(s, i, i, start, maxLen);
-            
-            // Even length palindrome (center do characters)
-            expandAroundCenter(s, i, i + 1, start, maxLen);
+        if (s.empty()) return "";
+        int n = s.size();
+        int start = 0, maxLen = 1;
+
+        auto expand = [&](int left, int right) {
+            while (left >= 0 && right < n && s[left] == s[right]) {
+                if (right - left + 1 > maxLen) {
+                    start = left;
+                    maxLen = right - left + 1;
+                }
+                left--;
+                right++;
+            }
+        };
+
+        for (int i = 0; i < n; i++) {
+            // Odd length palindrome
+            expand(i, i);
+            // Even length palindrome
+            expand(i, i + 1);
         }
-        
-        // longest palindrome substring return karo
+
         return s.substr(start, maxLen);
     }
-    
-private:
-    // Helper function jo center se expand karta hai
-    void expandAroundCenter(const string &s, int left, int right, int &start, int &maxLen) {
-        // Jab tak left aur right valid hai aur characters match karte hain
-        while (left >= 0 && right < s.size() && s[left] == s[right]) {
-            // Agar naya palindrome bada hai to update karo
-            if (right - left + 1 > maxLen) {
-                start = left;                   // naya start index
-                maxLen = right - left + 1;      // nayi length
-            }
-            left--;   // left side expand karo
-            right++;  // right side expand karo
-        }
-    }
 };
-
-        
