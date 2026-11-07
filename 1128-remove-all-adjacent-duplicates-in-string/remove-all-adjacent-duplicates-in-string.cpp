@@ -16,7 +16,7 @@ public:
             result.push_back(st.top());
             st.pop();
         }
-        // reverse krna hoga result
+        
         reverse(result.begin(), result.end());
         return result;
     }
